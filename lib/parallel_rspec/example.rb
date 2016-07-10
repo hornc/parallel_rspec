@@ -5,7 +5,7 @@ module ParallelRSpec
     def self.delegate_to_metadata(key)
       define_method(key) { metadata[key] }
     end
-
+    delegate_to_metadata :example_group
     delegate_to_metadata :execution_result
     delegate_to_metadata :file_path
     delegate_to_metadata :full_description

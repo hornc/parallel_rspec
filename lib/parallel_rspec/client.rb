@@ -59,7 +59,7 @@ module ParallelRSpec
           :rerun_file_path,
           :scoped_id,
           :shared_group_inclusion_backtrace,
-          :type))
+          :type).merge({example_group: example.example_group}))
     end
 
     def next_example_to_run

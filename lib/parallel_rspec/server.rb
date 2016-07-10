@@ -11,23 +11,24 @@ module ParallelRSpec
     end
 
     def example_started(example, channel_to_client)
+      @example = example
       reporter.example_started(example)
     end
 
     def example_passed(example, channel_to_client)
-      reporter.example_passed(example)
+      reporter.example_passed(update(example))
     end
 
     def example_failed(example, channel_to_client)
-      reporter.example_failed(example)
+      reporter.example_failed(update(example))
     end
 
     def example_finished(example, channel_to_client)
-      reporter.example_finished(example)
+      reporter.example_finished(@example)
     end
 
     def example_pending(example, channel_to_client)
-      reporter.example_pending(example)
+      reporter.example_pending(update(example))
     end
 
     def deprecation(hash, channel_to_client)
@@ -51,6 +52,12 @@ module ParallelRSpec
 
     def success?
       @success
+    end
+
+    def update(example)
+      @example ||= example
+      @example.metadata[:execution_result] = example.execution_result
+      @example
     end
   end
 end
